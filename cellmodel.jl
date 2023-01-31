@@ -56,13 +56,13 @@ end
         active_load, active_frac, density)
         # First, if you know areal capacity, active fraction and density, you can leave
         # thickness and active_load empty, and these will be calculated.
-        if thickness == nothing && active_load == nothing
+        if thickness === nothing && active_load === nothing
             thickness = areal_cap / (active_frac * active_material.spec_cap * density)
             active_load = areal_cap / active_material.spec_cap
             new(active_material, thickness, areal_cap, active_load, active_frac, density)
         # Otherwise, if you know thickness, loading and active fraction, you can calculate areal capacity and
         # composite density.
-        elseif areal_cap == nothing && density == nothing
+        elseif areal_cap === nothing && density === nothing
             areal_cap = active_material.spec_cap * active_load
             density = (active_load / active_frac) / thickness
             new(active_material, thickness, areal_cap, active_load, active_frac, density)
@@ -99,9 +99,9 @@ end
     saltmassfrac::Union{Nothing, Number} = nothing
 
     function Electrolyte(salt, solvent, concentration, density, saltmassfrac)
-        if salt == "LiPF6" && concentration != nothing
+        if salt == "LiPF6" && concentration !== nothing
             saltmassfrac = 0.1222 * concentration
-            if density == nothing && solvent == "EC:DEC"
+            if density === nothing && solvent == "EC:DEC"
                 density = 0.7641 * saltmassfrac + 1.1299
             end
         end
